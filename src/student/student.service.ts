@@ -19,7 +19,16 @@ export class StudentService {
   }
   
   async getStudentById(id: number): Promise<Student> {
-    return this.studentRepository.findOne(id);
+    return this.studentRepository.findOne({where: {id}});
+  }
+  
+  async updateStudent(id: number, student: Partial<Student>): Promise<Student> {
+    await this.studentRepository.update(id, student);
+    return this.studentRepository.findOne({where: {id}});
+  }
+  
+  async deleteStudent(id: number): Promise<void> {
+    await this.studentRepository.delete(id);
   }
   
 }
